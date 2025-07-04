@@ -7,13 +7,13 @@
   <Appenders>
     <!-- Console Appender -->
     <Console name="Console" target="SYSTEM_OUT">
-      <PatternLayout pattern="%d{HH:mm:ss.SSS} %-5level : [%t] %c{3}.%M:%L - %msg%n"/>
+      <PatternLayout pattern="%d{HH:mm:ss.SSS} %-5level : %c{3}.%M:%L [%t] - %msg%n"/>
     </Console>
 
     <!-- RollingFile Appender without Filter (gets everything) -->
     <RollingFile name="LogFile" fileName="${LOG_PATH}/holidayPlannerLogs.log"
                   filePattern="${LOG_PATH}/holidayPlannerLogs-%d{yyyy-MMM-dd}.log">
-      <PatternLayout pattern="%d{dd-MM-yyyy HH:mm:ss.SSS} %-5level : [%t] %c.%M:%L - %msg%n"/>
+      <PatternLayout pattern="%d{dd-MM-yyyy HH:mm:ss.SSS} %-5level : %c.%M:%L [%t] - %msg%n"/>
       <Policies>
         <TimeBasedTriggeringPolicy interval="1"/>
       </Policies>
