@@ -1,6 +1,7 @@
 package com.arpajit.holidayPlanner.service;
 
 import java.time.*;
+import java.time.format.DateTimeParseException;
 import java.util.*;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,8 +43,17 @@ public class HolidaysService {
     }
 
     public List<HolidayOutput> getMonthYearList(MonthYearRequest request) {
-        int year = request.getYear();
-        int month = request.getMonth();
+        int year = request.getYear()!=null ? Integer.valueOf(request.getYear()) : Year.now().getValue();
+        int month;
+        try {
+            if(request.getMonth()==null) throw new IllegalArgumentException("month is missing");
+            month = Month.valueOf(request.getMonth()).getValue();
+        } catch (IllegalArgumentException e) {
+            throw new IllegalArgumentException(
+                "month is not in correct format. Expected: Full month name all in UPPERCASE");
+        } catch (RuntimeException e) {
+            throw new RuntimeException("Exception due to entered month. ERROR: "+e.getMessage());
+        }
 
         LocalDate start = LocalDate.of(year, month, 1);
         LocalDate end = start.withDayOfMonth(start.lengthOfMonth());
@@ -58,10 +68,36 @@ public class HolidaysService {
     }
 
     public List<HolidayPlanOutput> getHolidayPlanner(HolidayPlanRequest request) {
-        LocalDate start = request.getStartDate();
-        LocalDate end = request.getEndDate();
-        int leaves = request.getLeaves();
-        int daysOfHolidays = request.getDaysOfHolidays();
+        LocalDate start;
+        LocalDate end;
+        int leaves;
+        int daysOfHolidays;
+
+        try {
+            start = request.getStartDate() != null ? LocalDate.parse(request.getStartDate()) : LocalDate.now();
+        } catch (DateTimeParseException e) {
+            throw new IllegalArgumentException("startDate is not in correct format. Expected: yyyy-mm-dd");
+        } catch (RuntimeException e) {
+            throw new RuntimeException("Exception due to entered startDate. ERROR: "+e.getMessage());
+        }
+
+        try {
+            end = request.getEndDate() != null ? LocalDate.parse(request.getEndDate()) : LocalDate.of(LocalDate.now().getYear(), 12, 31);
+        } catch (DateTimeParseException e) {
+            throw new IllegalArgumentException("endDate is not in correct format. Expected: yyyy-mm-dd");
+        } catch (RuntimeException e) {
+            throw new RuntimeException("Exception due to entered endDate. ERROR: "+e.getMessage());
+        }
+
+        leaves = request.getLeaves()==null ? 0 : Integer.valueOf(request.getLeaves());
+
+        if(request.getDaysOfHolidays()==null)
+            throw new IllegalArgumentException(
+                "Please enter how many days of holidays you need in daysOfHolidays");
+        else if(Integer.valueOf(request.getDaysOfHolidays())<leaves)
+            throw new IllegalArgumentException(
+                "Your Holiday of "+request.getDaysOfHolidays()+" days can be anytime if you can take "+leaves+" leaves");
+        else daysOfHolidays = Integer.valueOf(request.getDaysOfHolidays());
 
         List<HolidayPlanOutput> plan = new ArrayList<>();
         while(!start.isAfter(end)) {
