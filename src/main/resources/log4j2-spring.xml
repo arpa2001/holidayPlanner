@@ -22,7 +22,25 @@
 
   <Loggers>
     <!-- Application logs -->
-    <Logger name="com.arpajit.holidayPlanner" level="INFO" additivity="false">
+    <Logger name="com.arpajit.holidayPlanner" level="DEBUG" additivity="false">
+      <AppenderRef ref="Console"/>
+      <AppenderRef ref="LogFile"/>
+    </Logger>
+
+    <!-- Hibernate SQL statement logs -->
+    <Logger name="org.hibernate.SQL" level="DEBUG" additivity="false">
+      <AppenderRef ref="Console"/>
+      <AppenderRef ref="LogFile"/>
+    </Logger>
+
+    <!-- Hibernate SQL statement parameter logs -->
+    <Logger name="org.hibernate.orm.jdbc.bind" level="TRACE" additivity="false">
+      <AppenderRef ref="Console"/>
+      <AppenderRef ref="LogFile"/>
+    </Logger>
+
+    <!-- Hibernate SQL statement parameter logs -->
+    <Logger name="org.springframework.web.servlet.mvc.method.annotation" level="ERROR" additivity="false">
       <AppenderRef ref="Console"/>
       <AppenderRef ref="LogFile"/>
     </Logger>
