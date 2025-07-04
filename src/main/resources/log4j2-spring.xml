@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<Configuration status="DEBUG">
+<Configuration status="TRACE">
   <Properties>
     <Property name="LOG_PATH">../springBootAppLogs/holidayPlannerLogs</Property>
   </Properties>
@@ -22,7 +22,7 @@
 
   <Loggers>
     <!-- Application logs -->
-    <Logger name="com.arpajit.holidayPlanner" level="DEBUG" additivity="false">
+    <Logger name="com.arpajit.holidayPlanner" level="TRACE" additivity="false">
       <AppenderRef ref="Console"/>
       <AppenderRef ref="LogFile"/>
     </Logger>
