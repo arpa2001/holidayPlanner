@@ -1,18 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<Configuration status="WARN">
+<Configuration status="DEBUG">
   <Properties>
     <Property name="LOG_PATH">logs</Property>
-    <Property name="LOG_PATTERN">%d{HH:mm:ss.SSS} %-5level : [%t] %c{2}.%M:%L - %msg%n</Property>
+    <Property name="LOG_PATTERN">%d{HH:mm:ss.SSS} %-5level : [%t] %c{3}.%M:%L - %msg%n</Property>
   </Properties>
 
   <Appenders>
-    <!-- Console Appender with Threshold Filter -->
+    <!-- Console Appender -->
     <Console name="Console" target="SYSTEM_OUT">
-      <ThresholdFilter level="WARN" onMatch="ACCEPT" onMismatch="DENY"/>
       <PatternLayout pattern="${LOG_PATTERN}"/>
     </Console>
 
-    <!-- File Appender without Filter (gets everything) -->
+    <!-- RollingFile Appender without Filter (gets everything) -->
     <RollingFile name="LogFile" fileName="${LOG_PATH}/appLogs.log"
                   filePattern="${LOG_PATH}/appLogs-%d{yyyy-MMM-dd}.log">
       <PatternLayout pattern="${LOG_PATTERN}"/>
@@ -24,7 +23,7 @@
 
   <Loggers>
     <!-- Application logs -->
-    <Logger name="com.arpajit.holidayplanner" level="DEBUG" additivity="false">
+    <Logger name="com.arpajit.holidayPlanner" level="DEBUG" additivity="false">
       <AppenderRef ref="Console"/>
       <AppenderRef ref="LogFile"/>
     </Logger>
