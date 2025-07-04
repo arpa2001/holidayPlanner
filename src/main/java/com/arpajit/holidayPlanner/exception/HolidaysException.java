@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.servlet.resource.NoResourceFoundException;
 
 import com.arpajit.holidayPlanner.dto.*;
+import com.fasterxml.jackson.core.JsonProcessingException;
 
 @RestControllerAdvice
 public class HolidaysException {
@@ -76,6 +77,13 @@ public class HolidaysException {
         ExceptionResponse error = new ExceptionResponse("FAILURE: FORBIDDEN", e.getMessage());
         logger.error(e.getMessage());
         return ResponseEntity.status(HttpStatus.FORBIDDEN).body(error);
+    }
+
+    @ExceptionHandler(JsonProcessingException.class)
+    public ResponseEntity<ExceptionResponse> handleJsonProcessing(JsonProcessingException e) {
+        ExceptionResponse error = new ExceptionResponse("FAILURE: BAD_REQUEST", e.getMessage());
+        logger.error(e.getMessage());
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(error);
     }
 
     @ExceptionHandler(Exception.class)
