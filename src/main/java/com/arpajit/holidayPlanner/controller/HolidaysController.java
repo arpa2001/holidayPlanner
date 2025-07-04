@@ -22,15 +22,19 @@ public class HolidaysController {
     private ObjectMapper objectMapper;
 
     @GetMapping("/allHolidayDetails")
-    public List<HolidayAllFields> getAllHolidayDetails(HttpServletRequest httpRequest) {
+    public List<HolidayAllFields> getAllHolidayDetails(HttpServletRequest httpRequest) throws Exception {
         logger.info("Requested {}: {}", httpRequest.getMethod(), httpRequest.getRequestURL());
-        return holidaysService.getAllHolidayDetails();
+        List<HolidayAllFields> response = holidaysService.getAllHolidayDetails();
+        logger.info("Response Payload: {}", objectMapper.writeValueAsString(response));
+        return response;
     }
 
     @GetMapping("/allHolidays")
-    public List<HolidayOutput> getAllHolidays(HttpServletRequest httpRequest) {
+    public List<HolidayOutput> getAllHolidays(HttpServletRequest httpRequest) throws Exception {
         logger.info("Requested {}: {}", httpRequest.getMethod(), httpRequest.getRequestURL());
-        return holidaysService.getAllHolidays();
+        List<HolidayOutput> response = holidaysService.getAllHolidays();
+        logger.info("Response Payload: {}", objectMapper.writeValueAsString(response));
+        return response;
     }
 
     @PostMapping("/monthYearList")
@@ -38,7 +42,9 @@ public class HolidaysController {
                 @RequestBody MonthYearRequest request, HttpServletRequest httpRequest) throws Exception {
         logger.info("Requested {}: {}", httpRequest.getMethod(), httpRequest.getRequestURL());
         logger.info("Request Payload: {}", objectMapper.writeValueAsString(request));
-        return holidaysService.getMonthYearList(request);
+        List<HolidayOutput> response = holidaysService.getMonthYearList(request);
+        logger.info("Response Payload: {}", objectMapper.writeValueAsString(response));
+        return response;
     }
 
     @PostMapping("/holidayPlanner")
@@ -46,6 +52,8 @@ public class HolidaysController {
                 @RequestBody HolidayPlanRequest request, HttpServletRequest httpRequest) throws Exception {
         logger.info("Requested {}: {}", httpRequest.getMethod(), httpRequest.getRequestURL());
         logger.info("Request Payload: {}", objectMapper.writeValueAsString(request));
-        return holidaysService.getHolidayPlanner(request);
+        List<HolidayPlanOutput> response = holidaysService.getHolidayPlanner(request);
+        logger.info("Response Payload: {}", objectMapper.writeValueAsString(response));
+        return response;
     }
 }
