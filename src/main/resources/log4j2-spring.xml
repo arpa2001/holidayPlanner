@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Configuration status="TRACE">
   <Properties>
-    <Property name="LOG_PATH">../springBootAppLogs/holidayPlannerLogs</Property>
+    <Property name="LOG_PATH">appLogs</Property>
   </Properties>
 
   <Appenders>
@@ -11,8 +11,8 @@
     </Console>
 
     <!-- RollingFile Appender without Filter (gets everything) -->
-    <RollingFile name="LogFile" fileName="${LOG_PATH}/appLogs.log"
-                  filePattern="${LOG_PATH}/appLogs-%d{yyyy-MMM-dd}.log">
+    <RollingFile name="LogFile" fileName="${LOG_PATH}/holidayPlannerlogs.log"
+                  filePattern="${LOG_PATH}/holidayPlannerlogs-%d{yyyy-MMM-dd}.log">
       <PatternLayout pattern="%d{dd-MM-yyyy HH:mm:ss.SSS} %-5level : [%t] %c.%M:%L - %msg%n"/>
       <Policies>
         <TimeBasedTriggeringPolicy interval="1"/>
