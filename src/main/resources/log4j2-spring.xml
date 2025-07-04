@@ -23,7 +23,7 @@
 
   <Loggers>
     <!-- Application logs -->
-    <Logger name="com.arpajit.holidayPlanner" level="DEBUG" additivity="false">
+    <Logger name="com.arpajit.holidayPlanner" level="INFO" additivity="false">
       <AppenderRef ref="Console"/>
       <AppenderRef ref="LogFile"/>
     </Logger>
