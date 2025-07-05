@@ -9,9 +9,9 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.arpajit</groupId>
-	<artifactId>holidayPlanner</artifactId>
-	<version>1.0.0</version>
-	<name>holidayPlanner</name>
+	<artifactId>holidayplanner</artifactId>
+	<version>1.0.1</version>
+	<name>holidayplanner</name>
 	<description>Project to list dates with minimum leaves between holidays</description>
 	<packaging>jar</packaging>
 	<url/>
