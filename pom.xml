@@ -33,6 +33,7 @@
 	<distributionManagement>
       <repository>
         <id>holidayPlannerGithub</id>
+		<name>GitHub arpa2001 Apache Maven Packages</name>
         <url>https://maven.pkg.github.com/arpa2001/holidayPlanner</url>
       </repository>
     </distributionManagement>
