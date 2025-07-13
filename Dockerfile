@@ -30,18 +30,14 @@ ENV JAVA_HOME=/lib/jdk-21
 ENV MYSQL_HOME=/lib/mysql
 ENV PATH="$JAVA_HOME/bin:$MYSQL_HOME/bin:$PATH"
 
+# Removing installation packages
+RUN rm -rf /lib/downloads
+
 # Set working directory
 WORKDIR /opt
 
 # Initialise data
 COPY setup/DB/* /opt/DB/
-RUN /lib/mysql/bin/mysqld_safe --user=root & \
-    sleep 10 && \
-    mysql -u root < /opt/DB/init.sql
-
-# Removing installation packages and setup files
-RUN rm -rf /lib/downloads && \
-    rm -rf /opt/DB
 
 # Copy resources
 ARG JAR_FILE=/target/*.jar
@@ -50,5 +46,4 @@ COPY ${JAR_FILE} /app.jar
 EXPOSE 8080
 
 COPY setup/start.sh /opt/start.sh
-CMD ["/opt/start.sh"]
-# CMD [ "bash" ]
+ENTRYPOINT ["/opt/start.sh"]
